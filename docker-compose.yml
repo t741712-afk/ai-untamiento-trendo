@@ -16,7 +16,7 @@ services:
       context: ./portal-frontend
     container_name: trendo-frontend
     ports:
-      - "${FRONTEND_PORT:-8081}:80"
+      - "${FRONTEND_PORT:-80}:80"
     depends_on:
       - backend-service
     restart: unless-stopped

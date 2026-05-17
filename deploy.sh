@@ -118,7 +118,7 @@ done
 echo ""
 echo "=============================================="
 log "Despliegue completado"
-echo "  Frontend → http://localhost:${FRONTEND_PORT}"
+echo "  Frontend → http://localhost"
 echo "  Backend  → http://localhost:${BACKEND_PORT}/api/stats"
 echo ""
 echo "  Logs:  docker compose logs -f"
