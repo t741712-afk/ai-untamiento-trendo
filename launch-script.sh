@@ -8,7 +8,7 @@ echo "[$(date)] Iniciando despliegue..."
 # =============================================================================
 # Credenciales — rellena estos valores antes de usar el script
 # =============================================================================
-OPENAI_API_KEY=""
+GROQ_API_KEY=""
 TREND_API_KEY=""
 TREND_AI_URL="https://api.eu.xdr.trendmicro.com/v3.0/aiSecurity/applyGuardrails"
 TREND_AI_APP_NAME="ai-untamiento-trendo"
@@ -49,7 +49,7 @@ git clone "$REPO_URL" "$DEST_DIR"
 # --- .env ---------------------------------------------------------------------
 echo "[$(date)] Generando .env..."
 cat > "$DEST_DIR/.env" <<EOF
-OPENAI_API_KEY=${OPENAI_API_KEY}
+GROQ_API_KEY=${GROQ_API_KEY}
 TREND_API_KEY=${TREND_API_KEY}
 TREND_AI_URL=${TREND_AI_URL}
 TREND_AI_APP_NAME=${TREND_AI_APP_NAME}

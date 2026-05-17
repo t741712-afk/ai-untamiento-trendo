@@ -7,13 +7,10 @@ from app.services.memory import add_message, get_recent_messages
 
 load_dotenv()
 
-# -------------------------------------------------------------------
-# Este módulo encapsula la llamada al proveedor LLM.
-# No aplica seguridad de entrada ni salida: esa responsabilidad está
-# en chat.py + ai_guard.py.
-# -------------------------------------------------------------------
-
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(
+    api_key=os.getenv("GROQ_API_KEY"),
+    base_url="https://api.groq.com/openai/v1",
+)
 
 SYSTEM_PROMPT = """
 Eres el asistente virtual oficial del AI-untamiento de Trendo.
@@ -36,24 +33,8 @@ Instrucciones:
 
 
 def get_ai_reply(message: str) -> str:
-
-# -------------------------------------------------------------------
-    # Llamada al modelo.
-    #
-    # Flujo interno:
-    # 1. valida que exista OPENAI_API_KEY
-    # 2. obtiene contexto documental
-    # 3. obtiene memoria conversacional reciente
-    # 4. construye messages
-    # 5. llama a OpenAI
-    # 6. guarda conversación en memoria
-    #
-    # Este servicio es llamado desde:
-    # - chat.py -> get_ai_reply(...)
-    # -------------------------------------------------------------------
-
-    if not os.getenv("OPENAI_API_KEY"):
-        return "Falta configurar la API key de OpenAI en el backend."
+    if not os.getenv("GROQ_API_KEY"):
+        return "Falta configurar la API key de Groq en el backend."
 
     relevant_context = get_relevant_context(message)
     recent_messages = get_recent_messages(limit=6)
@@ -70,7 +51,7 @@ def get_ai_reply(message: str) -> str:
     messages.append({"role": "user", "content": message})
 
     response = client.chat.completions.create(
-        model="gpt-4o-mini",
+        model="llama-3.3-70b-versatile",
         messages=messages,
         temperature=0.3,
     )
