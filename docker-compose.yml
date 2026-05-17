@@ -1,0 +1,25 @@
+services:
+  backend-service:
+    build:
+      context: ./portal-backend
+    container_name: trendo-backend
+    ports:
+      - "${BACKEND_PORT:-9000}:8007"
+    env_file:
+      - .env
+    volumes:
+      - uploads:/data/uploads
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./portal-frontend
+    container_name: trendo-frontend
+    ports:
+      - "${FRONTEND_PORT:-8081}:80"
+    depends_on:
+      - backend-service
+    restart: unless-stopped
+
+volumes:
+  uploads:
